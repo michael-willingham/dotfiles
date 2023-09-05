@@ -37,3 +37,4 @@ antigen apply
 alias ls='exa -lh --icons'
 alias cat='bat'
 alias k8s='kubectl'
+alias tf='terraform'

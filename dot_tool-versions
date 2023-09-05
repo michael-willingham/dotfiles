@@ -1,0 +1,16 @@
+dotnet 7.0.400
+git 2.42.0
+golang 1.21.0
+helm 3.12.3
+jq 1.6
+yq 4.35.1
+ansible-base 2.10.17
+pipx 1.2.0
+k3d 5.6.0
+k9s 0.27.4
+k3sup 0.13.0
+neovim 0.9.1
+kubectl 1.28.1
+rust 1.72.0
+terraform 1.5.6
+python 3.11.5

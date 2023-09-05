@@ -36,3 +36,4 @@ antigen apply
 # Set aliases
 alias ls='exa -lh --icons'
 alias cat='bat'
+alias k8s='kubectl'

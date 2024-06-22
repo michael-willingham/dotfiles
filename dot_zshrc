@@ -17,6 +17,8 @@ antigen bundle command-not-found
 antigen bundle docker
 antigen bundle git
 antigen bundle pip
+antigen bundle thefuck
+antigen bundle zoxide
 
 # Additional bundles
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -34,7 +36,25 @@ antigen apply
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # Set aliases
+alias cls='clear'
 alias ls='exa -lh --icons'
-alias cat='bat'
+# alias cat='bat'
 alias k8s='kubectl'
-alias tf='terraform'
+alias tf='tofu'
+
+# Zoxide
+eval "$(zoxide init zsh)"
+
+# .NET
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+# Git
+export GPG_TTY=$(tty)
+
+
+# Add JBang to environment
+alias j!=jbang
+export PATH="$HOME/.jbang/bin:$PATH"
+
+# Krew
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"

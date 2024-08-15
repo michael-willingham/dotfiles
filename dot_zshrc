@@ -59,4 +59,5 @@ export PATH="$HOME/.jbang/bin:$PATH"
 export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 # Conda
-conda init "$(basename "${SHELL}")"
+nohup conda init "$(basename "${SHELL}")" & > /dev/null
+

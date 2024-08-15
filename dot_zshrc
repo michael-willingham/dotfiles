@@ -37,7 +37,7 @@ antigen apply
 
 # Set aliases
 alias cls='clear'
-alias ls='exa -lh --icons'
+alias ls='eza -lh --icons'
 alias cat='bat'
 alias k8s='kubectl'
 alias tf='tofu'

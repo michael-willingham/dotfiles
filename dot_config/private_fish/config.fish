@@ -1,6 +1,7 @@
 # Configure PATH
 set -U fish_user_paths /usr/local/bin $fish_user_paths
 set -U fish_user_paths /usr/bin $fish_user_paths
+set -U fish_user_paths ~/.local/bin $fish_user_paths
 
 # Configure homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"

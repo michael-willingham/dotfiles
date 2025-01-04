@@ -7,4 +7,4 @@ then
 fi
 
 # Install all mise packages
-~/.local/bin/mise i -y
+~/.local/bin/mise i -y --silent

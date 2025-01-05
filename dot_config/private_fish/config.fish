@@ -4,7 +4,9 @@ set -U fish_user_paths /usr/bin $fish_user_paths
 set -U fish_user_paths ~/.local/bin $fish_user_paths
 
 # Configure homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
+if test (uname) = "Darwin"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+end
 
 # Configure mise
 mise activate fish | source
@@ -14,6 +16,5 @@ set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $
 
 if status is-interactive
     zoxide init fish | source
-    macchina -m -p
     starship init fish | source
 end

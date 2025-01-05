@@ -5,7 +5,7 @@ set -U fish_user_paths ~/.local/bin $fish_user_paths
 
 # Configure homebrew
 if test (uname) = "Darwin"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+    eval (/opt/homebrew/bin/brew shellenv)
 end
 
 # Configure mise

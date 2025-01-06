@@ -16,5 +16,4 @@ set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $
 
 if status is-interactive
     zoxide init fish | source
-    starship init fish | source
 end

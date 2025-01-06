@@ -1,10 +1,4 @@
-#!/bin/bash
-
-# change to fish shell for the following commands
-fish
-
-# Install fisher if it is not already installed
-curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+#!/usr/bin/env fish
 
 # Install pure prompt
 fisher install pure-fish/pure

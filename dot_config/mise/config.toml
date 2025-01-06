@@ -2,6 +2,7 @@
 age = "latest"
 argocd = "latest"
 bat = "latest"
+"cargo:comtrya" = "latest"
 "cargo:macchina" = "latest"
 chezmoi = "latest"
 cmake = "latest"

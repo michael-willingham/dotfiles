@@ -15,5 +15,9 @@ end
 set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin
 
 if status is-interactive
+    macchina
     zoxide init fish | source
+    chezmoi update --no-tty &> /dev/null
+    chezmoi apply
+    mise install
 end

@@ -1,5 +1,6 @@
 [tools]
 age = "latest"
+ansible = "latest"
 argocd = "latest"
 bat = "latest"
 "cargo:comtrya" = "latest"

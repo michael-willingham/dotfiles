@@ -9,7 +9,7 @@ if test (uname) = "Darwin"
 end
 
 # Configure mise
-~/.local/bin/mise activate fish | source
+~/.local/bin/mise activate fish --shims | source
 
 # Enable krew kubectl plugins
 set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin

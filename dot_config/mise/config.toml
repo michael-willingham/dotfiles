@@ -2,6 +2,7 @@
 age = "latest"
 bat = "latest"
 cilium-cli = "latest"
+clusterctl = "latest"
 dotnet = "latest"
 eza = "latest"
 fastfetch = "latest"

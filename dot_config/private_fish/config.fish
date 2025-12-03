@@ -4,7 +4,7 @@ set -U fish_user_paths /usr/bin $fish_user_paths
 set -U fish_user_paths ~/.local/bin $fish_user_paths
 
 # Set EDITOR to helix
-set -Ux EDITOR helix
+set -Ux EDITOR hx
 
 # Configure homebrew
 if test (uname) = Darwin

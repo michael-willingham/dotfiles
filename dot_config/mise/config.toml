@@ -1,8 +1,21 @@
 [tools]
 age = "latest"
+argo = "latest"
 bat = "latest"
 cilium-cli = "latest"
-clusterctl = "latest"
+claude = { version = "latest", bin = "claude", platforms = """
+[linux-arm64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/linux-arm64/claude"
+
+[linux-x64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/linux-x64/claude"
+
+[macos-arm64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/darwin-arm64/claude"
+
+[macos-x64]
+url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/darwin-x64/claude"
+""", version_list_url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/stable" }
 dotnet = "latest"
 eza = "latest"
 fastfetch = "latest"
@@ -23,9 +36,11 @@ kubectl = "latest"
 kubelogin = "latest"
 maven = "latest"
 node = "latest"
+opencode = "latest"
 opentofu = "latest"
 quarkus = "latest"
 tekton = "latest"
 terraform = "latest"
 uv = "latest"
+vcluster = "latest"
 zoxide = "latest"

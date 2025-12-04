@@ -2,20 +2,9 @@
 age = "latest"
 argo = "latest"
 bat = "latest"
+biome = "latest"
 cilium-cli = "latest"
-claude = { version = "latest", bin = "claude", platforms = """
-[linux-arm64]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/linux-arm64/claude"
-
-[linux-x64]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/linux-x64/claude"
-
-[macos-arm64]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/darwin-arm64/claude"
-
-[macos-x64]
-url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/{version}/darwin-x64/claude"
-""", version_list_url = "https://storage.googleapis.com/claude-code-dist-86c565f3-f756-42ad-8dfa-d59b1c096819/claude-code-releases/stable" }
+clusterctl = "latest"
 dotnet = "latest"
 eza = "latest"
 fastfetch = "latest"
@@ -31,16 +20,22 @@ java = "latest"
 jbang = "latest"
 jq = "latest"
 k0sctl = "latest"
+k3d = "latest"
+k3sup = "latest"
 k9s = "latest"
+kind = "latest"
 kubectl = "latest"
 kubelogin = "latest"
+lazygit = "latest"
+marksman = "latest"
 maven = "latest"
+minikube = "latest"
 node = "latest"
 opencode = "latest"
 opentofu = "latest"
 quarkus = "latest"
+ruff = "latest"
 tekton = "latest"
-terraform = "latest"
+tilt = "latest"
 uv = "latest"
-vcluster = "latest"
 zoxide = "latest"

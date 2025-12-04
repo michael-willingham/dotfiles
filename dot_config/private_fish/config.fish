@@ -4,7 +4,9 @@ set -U fish_user_paths /usr/bin $fish_user_paths
 set -U fish_user_paths ~/.local/bin $fish_user_paths
 
 # Set EDITOR to helix
-set -Ux EDITOR hx
+set -gx EDITOR hx
+set -gx XDG_CONFIG_HOME $HOME/.config
+
 
 # Configure homebrew
 if test (uname) = Darwin
@@ -25,3 +27,8 @@ if test (uname) = Darwin
     set -U fish_user_paths ~/.lmstudio/bin $fish_user_paths
     source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 end
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/michael/.lmstudio/bin
+# End of LM Studio CLI section
+

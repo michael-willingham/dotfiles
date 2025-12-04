@@ -1,1 +1,35 @@
 theme = "ayu_dark"
+
+[editor]
+true-color = true
+color-modes = true
+cursorline = true
+auto-pairs = true
+line-number = "relative"
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.indent-guides]
+render = true
+character = "│"
+
+[editor.soft-wrap]
+enable = true
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.whitespace.render]
+space = "none"
+tab = "all"
+newline = "none"
+
+[editor.whitespace.characters]
+tab = "→"
+tabpad = " "
+
+rulers = [80, 120]

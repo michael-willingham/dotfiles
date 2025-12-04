@@ -1,0 +1,40 @@
+[[language]]
+name = "python"
+language-servers = ["ruff", "pyright", "helix-gpt"]
+formatter = { command = "ruff", args = ["format", "-"] }
+auto-format = true
+
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[[language]]
+name = "go"
+language-servers = ["gopls"]
+formatter = { command = "goimports" }
+auto-format = true
+
+[language-server.gopls]
+command = "gopls"
+
+[language-server.gopls.config.hints]
+assignVariableTypes = true
+compositeLiteralFields = true
+constantValues = true
+functionTypeParameters = true
+parameterNames = true
+rangeVariableTypes = true
+
+[[language]]
+name = "yaml"
+language-servers = ["yaml-language-server"]
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+validation = true
+
+# [language-server.yaml-language-server.config.yaml.schemas]
+# kubernetes = "*.yaml"
+
+# Or specify Kubernetes schema explicitly from schema store
+# "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.2-standalone-strict/all.json" = "*.yaml"

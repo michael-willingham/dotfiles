@@ -38,3 +38,19 @@ validation = true
 
 # Or specify Kubernetes schema explicitly from schema store
 # "https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.34.2-standalone-strict/all.json" = "*.yaml"
+
+[[language]]
+name = "markdown"
+language-servers = ["marksman"]
+formatter = { command = "mdformat", args = ["-"] }
+auto-format = true
+text-width = 80
+soft-wrap = { enable = true, wrap-at-text-width = true }
+
+[language.indent]
+tab-width = 2
+indent-width = 2
+unit = "  "
+
+[language-server.marksman]
+command = "marksman"

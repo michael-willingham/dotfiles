@@ -1,0 +1,8 @@
+# Config
+# ==========================
+auto-update-channel = tip
+macos-titlebar-style = tabs
+macos-icon = xray
+theme = ayu
+font-family = "JetBrainsMono Nerd Font"
+window-padding-x = 8

@@ -1,8 +1,17 @@
 # Config
 # ==========================
 auto-update-channel = tip
+background-opacity = 0.85
+background-blur-radius = 20
 macos-titlebar-style = tabs
 macos-icon = xray
 theme = ayu
 font-family = "JetBrainsMono Nerd Font"
 window-padding-x = 8
+
+# Window size (columns x rows)
+window-width = 120
+window-height = 40
+
+# Remember window position/size across sessions
+window-save-state = always

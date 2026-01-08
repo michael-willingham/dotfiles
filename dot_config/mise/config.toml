@@ -53,3 +53,8 @@ yq = "latest"
 opencode = "latest"
 gemini = "latest"
 krew = "latest"
+
+[settings]
+
+[settings.npm]
+package_manager = "bun"

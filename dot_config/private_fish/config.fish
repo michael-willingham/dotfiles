@@ -3,8 +3,7 @@ set -U fish_user_paths /usr/local/bin $fish_user_paths
 set -U fish_user_paths /usr/bin $fish_user_paths
 set -U fish_user_paths ~/.local/bin $fish_user_paths
 
-# Set EDITOR to helix
-set -gx EDITOR hx
+set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
 set -gx XDG_CONFIG_HOME $HOME/.config
 

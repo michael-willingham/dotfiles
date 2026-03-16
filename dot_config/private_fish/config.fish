@@ -15,7 +15,7 @@ end
 
 # Enable oh-my-posh and zoxide for interactive shells
 if status is-interactive
-  oh-my-posh init fish --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/paradox.omp.json' | source
+  oh-my-posh init fish --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/spaceship.omp.json' | source
   zoxide init fish | source
 end
 

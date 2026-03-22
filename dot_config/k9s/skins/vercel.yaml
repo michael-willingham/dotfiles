@@ -1,45 +1,40 @@
-# -----------------------------------------------------------------------------
-# K9s Gruvbox Dark Skin
-# -----------------------------------------------------------------------------
-
-# Styles...
-foreground: &foreground "#ebdbb2"
-background: &background "#1d2021"
-current_line: &current_line "#ebdbb2"
-selection: &selection "#3c3735"
-comment: &comment "#bdad93"
-cyan: &cyan "#689d69"
-green: &green "#989719"
-orange: &orange "#d79920"
-magenta: &magenta "#b16185"
-blue: &blue "#448488"
-red: &red "#cc231c"
+foreground: &foreground "#ffffff"
+background: &background "#000000"
+current_line: &current_line "#1a1a1a"
+selection: &selection "#e63946"
+comment: &comment "#555555"
+cyan: &cyan "#00bcd4"
+green: &green "#2ecc71"
+orange: &orange "#f4a261"
+magenta: &magenta "#9d0191"
+blue: &blue "#0070f3"
+red: &red "#e63946"
 
 k9s:
   body:
     fgColor: *foreground
     bgColor: *background
-    logoColor: *blue
+    logoColor: *red
   prompt:
     fgColor: *foreground
     bgColor: *background
-    suggestColor: *orange
+    suggestColor: *red
   info:
-    fgColor: *magenta
+    fgColor: *red
     sectionColor: *foreground
   help:
     fgColor: *foreground
     bgColor: *background
-    keyColor: *magenta
+    keyColor: *red
     numKeyColor: *blue
     sectionColor: *green
   dialog:
     fgColor: *foreground
     bgColor: *background
     buttonFgColor: *foreground
-    buttonBgColor: *magenta
-    buttonFocusFgColor: white
-    buttonFocusBgColor: *cyan
+    buttonBgColor: *red
+    buttonFocusFgColor: *background
+    buttonFocusBgColor: *red
     labelFgColor: *orange
     fieldFgColor: *foreground
   frame:
@@ -48,12 +43,12 @@ k9s:
       focusColor: *current_line
     menu:
       fgColor: *foreground
-      keyColor: *magenta
-      numKeyColor: *magenta
+      keyColor: *red
+      numKeyColor: *red
     crumbs:
       fgColor: *foreground
       bgColor: *comment
-      activeColor: *blue
+      activeColor: *red
     status:
       newColor: *cyan
       modifyColor: *blue
@@ -67,10 +62,10 @@ k9s:
       bgColor: *background
       highlightColor: *orange
       counterColor: *blue
-      filterColor: *magenta
+      filterColor: *red
   views:
     charts:
-      bgColor: background
+      bgColor: *background
       defaultDialColors:
         - *blue
         - *red
@@ -80,7 +75,7 @@ k9s:
     table:
       fgColor: *foreground
       bgColor: *background
-      cursorFgColor: "#fff"
+      cursorFgColor: *foreground
       cursorBgColor: *current_line
       header:
         fgColor: *foreground

@@ -14,7 +14,7 @@ k9s:
     crumbsless: false
     splashless: false
     reactive: false
-    skin: gruvbox-dark-hard
+    skin: vercel
     noIcons: false
     defaultsToFullScreen: false
     useFullGVRTitle: false

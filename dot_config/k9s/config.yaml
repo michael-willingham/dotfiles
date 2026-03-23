@@ -8,13 +8,12 @@ k9s:
   noExitOnCtrlC: false
   portForwardAddress: localhost
   ui:
-    enableMouse: false
+    enableMouse: true
     headless: false
     logoless: false
     crumbsless: false
     splashless: false
     reactive: false
-    skin: vercel
     noIcons: false
     defaultsToFullScreen: false
     useFullGVRTitle: false

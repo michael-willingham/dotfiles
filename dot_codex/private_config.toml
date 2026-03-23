@@ -1,0 +1,14 @@
+model = "gpt-5.4"
+model_context_window = 1000000
+model_reasoning_effort = "high"
+service_tier = "fast"
+
+[projects."/Users/michael"]
+trust_level = "trusted"
+
+[projects."/Users/michael/Developer"]
+trust_level = "trusted"
+
+[features]
+multi_agent = true
+

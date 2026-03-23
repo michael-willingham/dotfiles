@@ -4,8 +4,7 @@ This repository is the source of truth for my development environment, managed w
 
 It is intended to control all of my personal configuration, including:
 
-- Cursor
-- OpenCode
+- Codex
 - Fish
 - Ghostty
 - Neovim

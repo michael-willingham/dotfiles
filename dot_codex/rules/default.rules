@@ -1,4 +1,2 @@
 prefix_rule(pattern=["kubectl", "get"], decision="allow")
 prefix_rule(pattern=["kubectl", "logs"], decision="allow")
-prefix_rule(pattern=["talosctl"], decision="allow")
-prefix_rule(pattern=["omnictl"], decision="allow")

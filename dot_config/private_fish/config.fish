@@ -1,7 +1,5 @@
-# Configure PATH
-set -U fish_user_paths /usr/local/bin $fish_user_paths
-set -U fish_user_paths /usr/bin $fish_user_paths
-set -U fish_user_paths ~/.local/bin $fish_user_paths
+# Configure PATH in priority order
+fish_add_path -m -g /opt/nanobrew/prefix/bin /usr/local/bin /usr/bin ~/.local/bin
 
 set -gx EDITOR nvim
 set -gx GPG_TTY (tty)
@@ -18,4 +16,3 @@ if status is-interactive
   oh-my-posh init fish --config 'https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/refs/heads/main/themes/spaceship.omp.json' | source
   zoxide init fish | source
 end
-

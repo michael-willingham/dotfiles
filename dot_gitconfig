@@ -1,16 +1,9 @@
 [user]
 	name = Michael Willingham
 	email = michael@willingham.io
-	signingkey = 0104BD778EEF1590
 [credential "https://github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
+	helper = !/opt/nanobrew/prefix/bin/gh auth git-credential
 [credential "https://gist.github.com"]
 	helper = 
-	helper = !/opt/homebrew/bin/gh auth git-credential
-[commit]
-	gpgsign = true
-[tag]
-	gpgsign = true
-[gpg]
-	program = /opt/homebrew/bin/gpg
+	helper = !/opt/nanobrew/prefix/bin/gh auth git-credential

@@ -1,4 +1,7 @@
 model = "gpt-5.4"
+approvals_reviewer = "guardian_subagent"
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
 model_context_window = 1000000
 model_reasoning_effort = "high"
 service_tier = "fast"
@@ -11,4 +14,6 @@ trust_level = "trusted"
 
 [features]
 multi_agent = true
-
+apps = true
+guardian_approval = true
+prevent_idle_sleep = true

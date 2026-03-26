@@ -54,7 +54,7 @@ chezmoi will automatically run the following scripts **once** on first apply (tr
 
 | Script | Purpose |
 |--------|---------|
-| `run_once_install-nanobrew.sh` | Installs [nanobrew](https://github.com/nicehash/nanobrew) to `/opt/nanobrew` |
+| `run_once_install-nanobrew.sh` | Installs [nanobrew](https://github.com/justrach/nanobrew) to `/opt/nanobrew` |
 
 ## Notes
 

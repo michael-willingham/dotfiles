@@ -48,14 +48,6 @@ Apply updates:
 chezmoi apply
 ```
 
-## One-time Setup Scripts
-
-chezmoi will automatically run the following scripts **once** on first apply (tracked by content hash, so they re-run only if the script itself changes):
-
-| Script | Purpose |
-|--------|---------|
-| `run_once_install-nanobrew.sh` | Installs [nanobrew](https://github.com/justrach/nanobrew) to `/opt/nanobrew` |
-
 ## Notes
 
 - Secrets should be managed separately from this repository unless explicitly encrypted through `chezmoi`.

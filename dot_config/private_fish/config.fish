@@ -1,5 +1,5 @@
 # Configure PATH in priority order
-fish_add_path -m -g /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin ~/.local/bin
+fish_add_path -m -g /opt/homebrew/bin /opt/homebrew/sbin /usr/local/bin /usr/bin $HOME/.local/bin
 
 set -gx EDITOR nvim
 set -gx GPG_TTY (tty)

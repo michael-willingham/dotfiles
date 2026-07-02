@@ -1,2 +1,0 @@
-prefix_rule(pattern=["kubectl", "get"], decision="allow")
-prefix_rule(pattern=["kubectl", "logs"], decision="allow")

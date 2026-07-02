@@ -1,0 +1,54 @@
+# environment
+export EDITOR=nvim
+export LANG=en_US.UTF-8
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+export ZSH="$HOME/.oh-my-zsh"
+
+# theme
+# https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
+ZSH_THEME="gnzh"
+
+# omz update settings
+zstyle ':omz:update' mode auto
+zstyle ':omz:update' frequency 1
+
+# omz config
+CASE_SENSITIVE="true"
+COMPLETION_WAITING_DOTS="true"
+
+# omz plugins
+plugins=(
+  bazel
+  brew
+  bun
+  chezmoi
+  dotnet
+  git
+  git-auto-fetch
+  golang
+  kubectl
+  macos
+  mise
+  rust
+  thefuck
+  uv
+  web-search
+  zoxide
+)
+
+source $ZSH/oh-my-zsh.sh
+
+# OrbStack shell integration, macOS only.
+if [[ "$OSTYPE" == darwin* && -r "$HOME/.orbstack/shell/init.zsh" ]]; then
+  source "$HOME/.orbstack/shell/init.zsh"
+fi
+
+# aliases
+alias cat="bat"
+alias cd="z"
+alias cls="clear"
+alias e="exit"
+alias ff="fastfetch"
+alias ls="eza -lh --icons"
+alias nsmi="nvidia-smi"
+alias tf="terraform"

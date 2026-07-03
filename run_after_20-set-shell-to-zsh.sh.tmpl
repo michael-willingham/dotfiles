@@ -41,12 +41,14 @@ current_shell() {
 first_executable_zsh() {
   local candidate
   for candidate in \
-    "$(command -v zsh 2>/dev/null || true)" \
-    /bin/zsh \
-    /usr/bin/zsh \
+    /opt/workbrew/bin/zsh \
     /opt/homebrew/bin/zsh \
     /usr/local/bin/zsh \
-    /home/linuxbrew/.linuxbrew/bin/zsh; do
+    /home/linuxbrew/.linuxbrew/bin/zsh \
+    "$HOME/.linuxbrew/bin/zsh" \
+    "$(command -v zsh 2>/dev/null || true)" \
+    /bin/zsh \
+    /usr/bin/zsh; do
     if [ -n "$candidate" ] && [ -x "$candidate" ]; then
       printf '%s\n' "$candidate"
       return
@@ -54,53 +56,67 @@ first_executable_zsh() {
   done
 }
 
-first_allowed_zsh() {
-  local candidate
-  for candidate in \
-    "$(command -v zsh 2>/dev/null || true)" \
-    /bin/zsh \
-    /usr/bin/zsh \
-    /opt/homebrew/bin/zsh \
-    /usr/local/bin/zsh \
-    /home/linuxbrew/.linuxbrew/bin/zsh; do
-    if [ -n "$candidate" ] && [ -x "$candidate" ] && grep -qxF "$candidate" /etc/shells; then
-      printf '%s\n' "$candidate"
-      return
-    fi
-  done
+canonical_path() {
+  local path="$1"
+
+  if [ -z "$path" ]; then
+    return
+  fi
+
+  if command -v realpath >/dev/null 2>&1; then
+    realpath "$path" 2>/dev/null || printf '%s\n' "$path"
+  elif command -v readlink >/dev/null 2>&1; then
+    readlink -f "$path" 2>/dev/null || printf '%s\n' "$path"
+  else
+    printf '%s\n' "$path"
+  fi
+}
+
+same_shell() {
+  local left="$1"
+  local right="$2"
+
+  if [ -z "$left" ] || [ -z "$right" ]; then
+    return 1
+  fi
+
+  [ "$left" = "$right" ] || [ "$(canonical_path "$left")" = "$(canonical_path "$right")" ]
 }
 
 ensure_shell_is_allowed() {
   local shell_path="$1"
 
-  if [ ! -e /etc/shells ] || grep -qxF "$shell_path" /etc/shells; then
+  if [ -e /etc/shells ] && grep -qxF "$shell_path" /etc/shells; then
     return
   fi
 
-  if [ -w /etc/shells ]; then
+  echo "Adding ${shell_path} to /etc/shells"
+
+  if [ -w /etc/shells ] || { [ ! -e /etc/shells ] && [ -w /etc ]; }; then
+    touch /etc/shells
     printf '%s\n' "$shell_path" >>/etc/shells
+  elif command -v sudo >/dev/null 2>&1; then
+    sudo /bin/sh -c 'touch /etc/shells && { grep -qxF "$1" /etc/shells || printf "%s\n" "$1" >>/etc/shells; }' sh "$shell_path"
+  else
+    echo "$shell_path must be added to /etc/shells before it can be used as a login shell." >&2
+    exit 1
+  fi
+
+  if [ -e /etc/shells ] && grep -qxF "$shell_path" /etc/shells; then
     return
   fi
 
-  if command -v sudo >/dev/null 2>&1; then
-    sudo /bin/sh -c 'grep -qxF "$1" /etc/shells || printf "%s\n" "$1" >>/etc/shells' sh "$shell_path"
-    return
-  fi
-
-  echo "$shell_path must be added to /etc/shells before it can be used as a login shell." >&2
+  echo "Failed to add $shell_path to /etc/shells." >&2
   exit 1
 }
 
 login_shell="$(current_shell)"
 if [ "$(basename "${login_shell:-}")" = "zsh" ]; then
+  echo "Login shell for ${target_user} is already zsh: ${login_shell}"
   exit 0
 fi
 
-target_shell="$(first_allowed_zsh)"
-if [ -z "${target_shell:-}" ]; then
-  target_shell="$(first_executable_zsh)"
-fi
-
+target_shell="$(first_executable_zsh)"
 if [ -z "${target_shell:-}" ]; then
   echo "zsh is not installed or was not found on PATH." >&2
   exit 1
@@ -108,9 +124,22 @@ fi
 
 ensure_shell_is_allowed "$target_shell"
 
+echo "Changing login shell for ${target_user} from ${login_shell:-unknown} to ${target_shell}"
+
 if [ "$(id -u)" -eq 0 ]; then
   chsh -s "$target_shell" "$target_user"
+elif [ "$(uname -s)" = "Linux" ] && command -v sudo >/dev/null 2>&1; then
+  sudo chsh -s "$target_shell" "$target_user"
 else
   chsh -s "$target_shell"
 fi
+
+updated_shell="$(current_shell)"
+if same_shell "${updated_shell:-}" "$target_shell"; then
+  echo "Login shell for ${target_user} is now ${target_shell}"
+  exit 0
+fi
+
+echo "Login shell for ${target_user} is still ${updated_shell:-unknown}; expected ${target_shell}" >&2
+exit 1
 {{- end }}

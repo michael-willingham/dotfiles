@@ -38,12 +38,13 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# OrbStack shell integration, macOS only.
+# orbstack shell integration, macOS only.
 if [[ "$OSTYPE" == darwin* && -r "$HOME/.orbstack/shell/init.zsh" ]]; then
   source "$HOME/.orbstack/shell/init.zsh"
 fi
 
 # aliases
+alias c="chezmoi"
 alias cat="bat"
 alias cd="z"
 alias cls="clear"
@@ -52,3 +53,14 @@ alias ff="fastfetch"
 alias ls="eza -lh --icons"
 alias nsmi="nvidia-smi"
 alias tf="terraform"
+
+# zsh syntax highlighting
+if [[ "$OSTYPE" == darwin* && -r "/opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
+# zsh autosuggestions
+if [[ "$OSTYPE" == darwin* && -r "/opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+

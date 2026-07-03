@@ -13,6 +13,30 @@ if [ -e "$zsh_dir" ]; then
   exit 1
 fi
 
+load_homebrew() {
+  if command -v brew >/dev/null 2>&1; then
+    eval "$(brew shellenv)"
+    return 0
+  fi
+
+  local candidate
+  for candidate in \
+    /opt/workbrew/bin/brew \
+    /opt/homebrew/bin/brew \
+    /usr/local/bin/brew \
+    /home/linuxbrew/.linuxbrew/bin/brew \
+    "$HOME/.linuxbrew/bin/brew"; do
+    if [ -x "$candidate" ]; then
+      eval "$("$candidate" shellenv)"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+load_homebrew || true
+
 if ! command -v zsh >/dev/null 2>&1; then
   echo "zsh is required before installing Oh My Zsh." >&2
   exit 1

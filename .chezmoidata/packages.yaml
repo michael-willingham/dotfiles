@@ -8,7 +8,6 @@ packages:
       common:
         - bat
         - bun
-        - chezmoi
         - eza
         - fastfetch
         - gh
@@ -25,7 +24,6 @@ packages:
         - temporal
         - thefuck
         - uv
-        - zigflow/tap/zigflow
         - zoxide
         - zsh
       darwin: []
@@ -34,3 +32,4 @@ packages:
       darwin:
         - ghostty@tip
         - orbstack
+        - zigflow/tap/zigflow

@@ -1,0 +1,36 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+zsh_dir="${ZSH:-$HOME/.oh-my-zsh}"
+
+if [ -d "$zsh_dir/.git" ]; then
+  exit 0
+fi
+
+if [ -e "$zsh_dir" ]; then
+  echo "$zsh_dir already exists but does not look like an Oh My Zsh git checkout." >&2
+  exit 1
+fi
+
+if ! command -v zsh >/dev/null 2>&1; then
+  echo "zsh is required before installing Oh My Zsh." >&2
+  exit 1
+fi
+
+if ! command -v git >/dev/null 2>&1; then
+  echo "git is required before installing Oh My Zsh." >&2
+  exit 1
+fi
+
+install_url="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
+
+if command -v curl >/dev/null 2>&1; then
+  ZSH="$zsh_dir" CHSH=no RUNZSH=no KEEP_ZSHRC=yes /bin/sh -c "$(curl -fsSL "$install_url")" "" --unattended --keep-zshrc
+elif command -v wget >/dev/null 2>&1; then
+  ZSH="$zsh_dir" CHSH=no RUNZSH=no KEEP_ZSHRC=yes /bin/sh -c "$(wget -qO- "$install_url")" "" --unattended --keep-zshrc
+else
+  echo "curl or wget is required to install Oh My Zsh." >&2
+  exit 1
+fi
+{{- end }}

@@ -2,6 +2,8 @@ packages:
   homebrew:
     taps:
       - hashicorp/tap
+      - siderolabs/tap
+      - zigflow/tap
     brews:
       common:
         - bat
@@ -19,8 +21,11 @@ packages:
         - neovim
         - ripgrep
         - rust
+        - siderolabs/tap/sidero-tools
+        - temporal
         - thefuck
         - uv
+        - zigflow/tap/zigflow
         - zoxide
         - zsh
       darwin: []

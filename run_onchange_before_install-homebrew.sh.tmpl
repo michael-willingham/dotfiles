@@ -1,0 +1,66 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+case "$(uname -s)" in
+  Darwin)
+    os="darwin"
+    ;;
+  Linux)
+    os="linux"
+    ;;
+  *)
+    echo "Homebrew bundle is only managed on macOS and Linux." >&2
+    exit 0
+    ;;
+esac
+
+load_homebrew() {
+  if command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+
+  local candidate
+  for candidate in \
+    /opt/homebrew/bin/brew \
+    /usr/local/bin/brew \
+    /home/linuxbrew/.linuxbrew/bin/brew; do
+    if [ -x "$candidate" ]; then
+      eval "$("$candidate" shellenv)"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+install_homebrew() {
+  local install_url
+  install_url="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
+
+  echo "Installing Homebrew for ${os}..."
+
+  if command -v curl >/dev/null 2>&1; then
+    NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL "$install_url")"
+  elif command -v wget >/dev/null 2>&1; then
+    NONINTERACTIVE=1 /bin/bash -c "$(wget -qO- "$install_url")"
+  else
+    echo "curl or wget is required to install Homebrew." >&2
+    exit 1
+  fi
+}
+
+if ! load_homebrew; then
+  install_homebrew
+  load_homebrew
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew was installed, but brew is still not available on PATH." >&2
+  exit 1
+fi
+
+brew bundle --no-lock --file=/dev/stdin <<'BREWFILE'
+{{ includeTemplate "Brewfile.tmpl" . -}}
+BREWFILE
+{{- end }}

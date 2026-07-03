@@ -1,0 +1,16 @@
+{{- range .packages.homebrew.taps }}
+tap {{ . | quote }}
+{{- end }}
+
+{{- range .packages.homebrew.brews.common }}
+brew {{ . | quote }}
+{{- end }}
+{{- range (index .packages.homebrew.brews .chezmoi.os) }}
+brew {{ . | quote }}
+{{- end }}
+
+{{- if eq .chezmoi.os "darwin" }}
+{{- range .packages.homebrew.casks.darwin }}
+cask {{ . | quote }}
+{{- end }}
+{{- end }}

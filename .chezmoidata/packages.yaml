@@ -1,0 +1,31 @@
+packages:
+  homebrew:
+    taps:
+      - hashicorp/tap
+    brews:
+      common:
+        - bat
+        - bun
+        - chezmoi
+        - eza
+        - fastfetch
+        - gh
+        - git
+        - go
+        - hashicorp/tap/terraform
+        - k9s
+        - kubernetes-cli
+        - mise
+        - neovim
+        - ripgrep
+        - rust
+        - thefuck
+        - uv
+        - zoxide
+        - zsh
+      darwin: []
+      linux: []
+    casks:
+      darwin:
+        - ghostty
+        - orbstack

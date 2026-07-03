@@ -1,0 +1,116 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+target_user="${USER:-$(id -un)}"
+
+current_shell() {
+  local shell_path
+
+  if command -v getent >/dev/null 2>&1; then
+    shell_path="$(getent passwd "$target_user" 2>/dev/null | cut -d: -f7 || true)"
+    if [ -n "$shell_path" ]; then
+      printf '%s\n' "$shell_path"
+      return
+    fi
+  fi
+
+  shell_path="$(id -P "$target_user" 2>/dev/null | awk -F: '{print $10}' || true)"
+  if [ -n "$shell_path" ]; then
+    printf '%s\n' "$shell_path"
+    return
+  fi
+
+  if [ "$(uname -s)" = "Darwin" ] && command -v dscl >/dev/null 2>&1; then
+    shell_path="$(dscl . -read "/Users/${target_user}" UserShell 2>/dev/null | awk '{print $2}' || true)"
+    if [ -n "$shell_path" ]; then
+      printf '%s\n' "$shell_path"
+      return
+    fi
+  fi
+
+  shell_path="$(awk -F: -v user="$target_user" '$1 == user { print $7 }' /etc/passwd 2>/dev/null || true)"
+  if [ -n "$shell_path" ]; then
+    printf '%s\n' "$shell_path"
+    return
+  fi
+
+  printf '%s\n' "${SHELL:-}"
+}
+
+first_executable_zsh() {
+  local candidate
+  for candidate in \
+    "$(command -v zsh 2>/dev/null || true)" \
+    /bin/zsh \
+    /usr/bin/zsh \
+    /opt/homebrew/bin/zsh \
+    /usr/local/bin/zsh \
+    /home/linuxbrew/.linuxbrew/bin/zsh; do
+    if [ -n "$candidate" ] && [ -x "$candidate" ]; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  done
+}
+
+first_allowed_zsh() {
+  local candidate
+  for candidate in \
+    "$(command -v zsh 2>/dev/null || true)" \
+    /bin/zsh \
+    /usr/bin/zsh \
+    /opt/homebrew/bin/zsh \
+    /usr/local/bin/zsh \
+    /home/linuxbrew/.linuxbrew/bin/zsh; do
+    if [ -n "$candidate" ] && [ -x "$candidate" ] && grep -qxF "$candidate" /etc/shells; then
+      printf '%s\n' "$candidate"
+      return
+    fi
+  done
+}
+
+ensure_shell_is_allowed() {
+  local shell_path="$1"
+
+  if [ ! -e /etc/shells ] || grep -qxF "$shell_path" /etc/shells; then
+    return
+  fi
+
+  if [ -w /etc/shells ]; then
+    printf '%s\n' "$shell_path" >>/etc/shells
+    return
+  fi
+
+  if command -v sudo >/dev/null 2>&1; then
+    sudo /bin/sh -c 'grep -qxF "$1" /etc/shells || printf "%s\n" "$1" >>/etc/shells' sh "$shell_path"
+    return
+  fi
+
+  echo "$shell_path must be added to /etc/shells before it can be used as a login shell." >&2
+  exit 1
+}
+
+login_shell="$(current_shell)"
+if [ "$(basename "${login_shell:-}")" = "zsh" ]; then
+  exit 0
+fi
+
+target_shell="$(first_allowed_zsh)"
+if [ -z "${target_shell:-}" ]; then
+  target_shell="$(first_executable_zsh)"
+fi
+
+if [ -z "${target_shell:-}" ]; then
+  echo "zsh is not installed or was not found on PATH." >&2
+  exit 1
+fi
+
+ensure_shell_is_allowed "$target_shell"
+
+if [ "$(id -u)" -eq 0 ]; then
+  chsh -s "$target_shell" "$target_user"
+else
+  chsh -s "$target_shell"
+fi
+{{- end }}

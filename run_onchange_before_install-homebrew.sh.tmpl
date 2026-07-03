@@ -60,7 +60,22 @@ if ! command -v brew >/dev/null 2>&1; then
   exit 1
 fi
 
-brew bundle install --file=- <<'BREWFILE'
+if brew trust --help >/dev/null 2>&1; then
+{{- range .packages.homebrew.taps }}
+  brew trust --tap {{ . | quote }}
+{{- end }}
+fi
+
+brewfile="$(mktemp)"
+trap 'rm -f "$brewfile"' EXIT
+
+cat >"$brewfile" <<'BREWFILE'
 {{ includeTemplate "Brewfile.tmpl" . -}}
 BREWFILE
+
+if brew bundle check --no-upgrade --file="$brewfile" >/dev/null 2>&1; then
+  exit 0
+fi
+
+brew bundle install --no-upgrade --file="$brewfile"
 {{- end }}

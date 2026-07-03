@@ -27,5 +27,5 @@ packages:
       linux: []
     casks:
       darwin:
-        - ghostty
+        - ghostty@tip
         - orbstack

@@ -1,35 +1,36 @@
 packages:
   homebrew:
     taps:
-      - hashicorp/tap
-      - siderolabs/tap
+      - epheterson/zimi
       - zigflow/tap
     brews:
       common:
-        - bat
-        - bun
-        - eza
-        - fastfetch
-        - gh
         - git
-        - go
-        - hashicorp/tap/terraform
-        - k9s
-        - kubernetes-cli
+        - gnupg
         - mise
-        - neovim
-        - ripgrep
-        - rust
-        - siderolabs/tap/sidero-tools
+        - mole
+        - powerlevel10k
         - temporal
-        - thefuck
-        - uv
-        - zoxide
+        - whosthere
         - zsh
+        - zsh-autosuggestions
+        - zsh-syntax-highlighting
+        - zsh-you-should-use
       darwin: []
       linux: []
     casks:
       darwin:
+        - balenaetcher
+        - brave-origin@beta
+        - bruno
+        - cleanshot
+        - cursor
+        - font-jetbrains-mono-nerd-font
         - ghostty@tip
+        - grok-bot
+        - grok-build
+        - kubecontext
+        - mole-app
         - orbstack
-        - zigflow/tap/zigflow
+        - zigflow
+        - zimi

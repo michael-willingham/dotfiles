@@ -31,6 +31,13 @@ packages:
         - grok-build
         - kubecontext
         - mole-app
+        - obsidian
+        - ollama-app
         - orbstack
+        - raspberry-pi-imager
+        - raycast
+        - spotify
+        - steam
+        - tailscale-app
         - zigflow
         - zimi

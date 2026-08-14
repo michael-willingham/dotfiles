@@ -25,9 +25,7 @@ COMPLETION_WAITING_DOTS="true"
 
 # omz plugins
 plugins=(
-  bazel
   brew
-  bun
   chezmoi
   dotnet
   git
@@ -36,8 +34,6 @@ plugins=(
   kubectl
   macos
   mise
-  rust
-  thefuck
   uv
   web-search
   zoxide

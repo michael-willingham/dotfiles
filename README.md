@@ -2,20 +2,21 @@
 
 This repository is the source of truth for my development environment, managed with [chezmoi](https://www.chezmoi.io/).
 
-It is intended to control all of my personal configuration, including:
+It currently manages:
 
-- Codex
-- Fish
+- Zsh, Oh My Zsh, and Powerlevel10k
+- Git
 - Ghostty
 - Neovim
-- Git
-- Shell tooling
-- Terminal configuration
-- Other machine-specific and cross-machine developer setup
+- [mise](https://mise.jdx.dev/) tool versions
+- k9s
+- Homebrew packages, plus macOS casks
+
+`README.md` and `AGENTS.md` stay in the repo only. They are listed in `.chezmoiignore` so `chezmoi apply` does not copy them into `$HOME`.
 
 ## Goals
 
-- Keep my full config portable and reproducible
+- Keep the full config portable and reproducible
 - Manage changes declaratively with `chezmoi`
 - Sync the same setup across machines with minimal manual steps
 
@@ -24,17 +25,27 @@ It is intended to control all of my personal configuration, including:
 Initialize a new machine with `chezmoi` and this repo:
 
 ```sh
-chezmoi init https://github.com/michael-willingham/dotfiles.git
+chezmoi init https://github.com/mhwtx/dotfiles.git
 chezmoi apply
 ```
+
+On apply, chezmoi writes the managed dotfiles and runs the bootstrap scripts:
+
+1. Install Homebrew if needed, then `brew bundle` the packages in `.chezmoidata/packages.yaml`
+2. Install Oh My Zsh if it is missing
+3. Set the login shell to zsh
+
+CLI tools such as `bat`, `eza`, `zoxide`, and `fastfetch` come from mise (`~/.config/mise/config.toml`), not from the Homebrew list.
 
 Edit managed files through `chezmoi`:
 
 ```sh
-chezmoi edit ~/.config/fish/config.fish
+chezmoi edit ~/.zshrc
 chezmoi edit ~/.config/nvim/init.lua
-chezmoi edit ~/.config/Cursor/User/settings.json
+chezmoi edit ~/.config/ghostty/config
 ```
+
+Or edit the source files in this repository (`dot_zshrc`, `dot_config/…`) and apply.
 
 Review pending changes:
 
@@ -50,5 +61,6 @@ chezmoi apply
 
 ## Notes
 
-- Secrets should be managed separately from this repository unless explicitly encrypted through `chezmoi`.
-- Some configs may eventually use templates, scripts, or machine-specific conditionals as this setup grows.
+- Secrets should stay out of this repository unless they are explicitly encrypted through `chezmoi`.
+- Homebrew casks install on macOS only. Formulae in the common list install on both macOS and Linux.
+- Shell plugin paths in `~/.zshrc` currently assume Homebrew on Apple Silicon (`/opt/homebrew`).

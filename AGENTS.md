@@ -41,7 +41,7 @@ Do not add a leading `.` to managed source files unless they are chezmoi special
 
 - **Homebrew packages and macOS casks:** `.chezmoidata/packages.yaml`. Common brews apply on macOS and Linux. Darwin/Linux brew lists are currently empty. Casks are Darwin-only and are skipped on Linux by `Brewfile.tmpl`.
 - **CLI tool versions:** `dot_config/mise/config.toml`. Aliases in `dot_zshrc` (`bat`, `eza`, `zoxide`, `fastfetch`) assume mise-installed tools, not Homebrew. The mise binary is installed to `~/.local/bin` via `https://mise.run`, not Homebrew.
-- **Shell behavior:** `dot_zshrc` (Oh My Zsh plugins, aliases, Homebrew plugin sources). `dot_p10k.zsh` is generated Powerlevel10k config; avoid hand-edits unless the user asks.
+- **Shell behavior:** `dot_zshrc`. Keep the section order: instant prompt, environment, Homebrew, Oh My Zsh, integrations (including daily `mise up`), aliases, extra plugins, prompt, syntax highlighting last. `dot_p10k.zsh` is generated Powerlevel10k config; avoid hand-edits unless the user asks.
 - **New managed dotfiles:** add them with chezmoi source names (`dot_…`, `dot_config/…`) in this repo. Prefer editing source files here over `chezmoi add` from a cloud-agent `$HOME`.
 
 ## Apply scripts
@@ -56,7 +56,8 @@ Do not add a leading `.` to managed source files unless they are chezmoi special
 ## Current constraints
 
 - Default branch is `master`. Remote is `https://github.com/mhwtx/dotfiles.git`.
-- The setup is macOS-first. `dot_zshrc` sources Powerlevel10k and zsh plugins from `/opt/homebrew`. Syntax highlighting and autosuggestions are Darwin-only; the p10k `source` line is unconditional.
+- The setup is macOS-first, but `dot_zshrc` now resolves Homebrew via `brew shellenv` (Workbrew, `/opt/homebrew`, `/usr/local`, Linuxbrew) and only sources plugins/themes that exist under `HOMEBREW_PREFIX`.
+- Interactive shells run `mise self-update -y` and `mise up -y` in the background at most once every `MISE_AUTO_UP_HOURS` (default 24). Disable with `MISE_AUTO_UP=0`. Do not run that upgrade inline during prompt startup.
 - GitHub `gh` credential helpers in `dot_gitconfig` also assume `/opt/homebrew/bin/gh`.
 - Fish, Codex, Cursor `settings.json`, nanobrew, and `~/.agents` skill trees were removed. Do not restore them unless asked.
 - There is no test suite, linter, or CI. For script changes, reason about idempotency, `set -euo pipefail`, and both Darwin and Linux paths.

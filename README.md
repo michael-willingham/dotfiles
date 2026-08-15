@@ -37,6 +37,8 @@ On apply, chezmoi writes the managed dotfiles and runs the bootstrap scripts:
 4. Install [mise](https://mise.jdx.dev/) to `~/.local/bin` if it is missing
 5. Run `mise install` when `~/.config/mise/config.toml` changes
 
+Interactive zsh sessions also run `mise self-update` and `mise up` in the background at most once a day. Set `MISE_AUTO_UP=0` to disable that.
+
 CLI tools such as `bat`, `eza`, `zoxide`, and `fastfetch` come from mise (`~/.config/mise/config.toml`), not from the Homebrew list.
 
 Edit managed files through `chezmoi`:
@@ -66,4 +68,4 @@ chezmoi apply
 - Secrets should stay out of this repository unless they are explicitly encrypted through `chezmoi`.
 - Homebrew casks install on macOS only. Formulae in the common list install on both macOS and Linux.
 - mise itself is installed to `~/.local/bin` with the official installer, not Homebrew.
-- Shell plugin paths in `~/.zshrc` currently assume Homebrew on Apple Silicon (`/opt/homebrew`).
+- `~/.zshrc` loads Homebrew from Workbrew, Apple Silicon, Intel, or Linuxbrew when present, then sources zsh plugins from `HOMEBREW_PREFIX`.

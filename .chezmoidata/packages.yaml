@@ -7,7 +7,6 @@ packages:
       common:
         - git
         - gnupg
-        - mise
         - mole
         - powerlevel10k
         - temporal

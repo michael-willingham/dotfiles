@@ -1,0 +1,24 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Re-run when the managed mise config changes.
+# dot_config/mise/config.toml hash: {{ include "dot_config/mise/config.toml" | sha256sum }}
+
+mise_bin="${HOME}/.local/bin/mise"
+mise_config="${XDG_CONFIG_HOME:-$HOME/.config}/mise/config.toml"
+
+if [ ! -x "$mise_bin" ]; then
+  echo "mise is not installed at $mise_bin; install it before running mise install." >&2
+  exit 1
+fi
+
+if [ ! -f "$mise_config" ]; then
+  echo "mise config not found at $mise_config." >&2
+  exit 1
+fi
+
+cd "$HOME"
+MISE_YES=1 "$mise_bin" trust "$mise_config"
+MISE_YES=1 "$mise_bin" install -y
+{{- end }}

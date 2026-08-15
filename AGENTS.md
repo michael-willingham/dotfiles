@@ -20,6 +20,8 @@ This is a [chezmoi](https://www.chezmoi.io/) **source-state** repository, not an
 | `run_onchange_before_install-homebrew.sh.tmpl` | Before apply: install Homebrew if needed, then `brew bundle` |
 | `run_after_10-install-oh-my-zsh.sh.tmpl` | After apply: install Oh My Zsh if missing |
 | `run_after_20-set-shell-to-zsh.sh.tmpl` | After apply: set the login shell to zsh |
+| `run_after_30-install-mise.sh.tmpl` | After apply: install mise to `~/.local/bin` if missing |
+| `run_onchange_after_40-mise-install.sh.tmpl` | After apply, when `dot_config/mise/config.toml` changes: `mise trust` + `mise install` |
 
 Repo docs stay in git and must not land in `$HOME`. `.chezmoiignore` currently excludes `README.md` and `AGENTS.md`. Chezmoi also ignores ordinary dotfiles in the source tree except its special files (`.chezmoiignore`, `.chezmoidata`, `.chezmoitemplates`, and similar).
 
@@ -38,7 +40,7 @@ Do not add a leading `.` to managed source files unless they are chezmoi special
 ## Where things belong
 
 - **Homebrew packages and macOS casks:** `.chezmoidata/packages.yaml`. Common brews apply on macOS and Linux. Darwin/Linux brew lists are currently empty. Casks are Darwin-only and are skipped on Linux by `Brewfile.tmpl`.
-- **CLI tool versions:** `dot_config/mise/config.toml`. Aliases in `dot_zshrc` (`bat`, `eza`, `zoxide`, `fastfetch`) assume mise-installed tools, not Homebrew.
+- **CLI tool versions:** `dot_config/mise/config.toml`. Aliases in `dot_zshrc` (`bat`, `eza`, `zoxide`, `fastfetch`) assume mise-installed tools, not Homebrew. The mise binary is installed to `~/.local/bin` via `https://mise.run`, not Homebrew.
 - **Shell behavior:** `dot_zshrc` (Oh My Zsh plugins, aliases, Homebrew plugin sources). `dot_p10k.zsh` is generated Powerlevel10k config; avoid hand-edits unless the user asks.
 - **New managed dotfiles:** add them with chezmoi source names (`dot_…`, `dot_config/…`) in this repo. Prefer editing source files here over `chezmoi add` from a cloud-agent `$HOME`.
 
@@ -47,7 +49,8 @@ Do not add a leading `.` to managed source files unless they are chezmoi special
 `chezmoi apply` is machine-mutating. Do not run it in this workspace unless the user asks.
 
 - Homebrew script is `run_onchange_`: it reruns when the rendered script changes (including package-list changes).
-- Oh My Zsh and login-shell scripts are `run_after_`: they run on every apply, but exit early when already satisfied.
+- Oh My Zsh, login-shell, and mise-binary scripts are `run_after_`: they run on every apply, but exit early when already satisfied.
+- The mise tools script is `run_onchange_after_`: it embeds a SHA256 of `dot_config/mise/config.toml` so `mise install` reruns when that file changes. Keep the hash comment if you rename or split the script.
 - Scripts are templates gated to `darwin` and `linux`. They look for Homebrew at Workbrew, Apple Silicon, Intel, and Linuxbrew paths.
 
 ## Current constraints
@@ -64,7 +67,7 @@ Do not add a leading `.` to managed source files unless they are chezmoi special
 - Keep `README.md` aligned with the actual managed files, clone URL, and apply behavior.
 - Put new Homebrew entries in `packages.yaml`, not by editing the generated Brewfile by hand.
 - Leave secrets, tokens, and private keys out of this repo unless the user explicitly wants chezmoi encryption.
-- Preserve existing comment style and keep shell scripts non-interactive (`NONINTERACTIVE=1`, Oh My Zsh `CHSH=no RUNZSH=no KEEP_ZSHRC=yes`).
+- Preserve existing comment style and keep shell scripts non-interactive (`NONINTERACTIVE=1`, Oh My Zsh `CHSH=no RUNZSH=no KEEP_ZSHRC=yes`, `MISE_YES=1`).
 
 ## Ask first
 

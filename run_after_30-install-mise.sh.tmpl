@@ -1,0 +1,34 @@
+{{- if or (eq .chezmoi.os "darwin") (eq .chezmoi.os "linux") -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+mise_bin="${HOME}/.local/bin/mise"
+
+if [ -x "$mise_bin" ]; then
+  exit 0
+fi
+
+if [ -e "$mise_bin" ]; then
+  echo "$mise_bin already exists but is not an executable mise binary." >&2
+  exit 1
+fi
+
+install_url="https://mise.run"
+
+echo "Installing mise to ${mise_bin}..."
+mkdir -p "$(dirname "$mise_bin")"
+
+if command -v curl >/dev/null 2>&1; then
+  curl -fsSL "$install_url" | MISE_INSTALL_PATH="$mise_bin" MISE_QUIET=1 /bin/sh
+elif command -v wget >/dev/null 2>&1; then
+  wget -qO- "$install_url" | MISE_INSTALL_PATH="$mise_bin" MISE_QUIET=1 /bin/sh
+else
+  echo "curl or wget is required to install mise." >&2
+  exit 1
+fi
+
+if [ ! -x "$mise_bin" ]; then
+  echo "mise was installed, but $mise_bin is still not executable." >&2
+  exit 1
+fi
+{{- end }}

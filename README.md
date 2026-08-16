@@ -11,8 +11,9 @@ It currently manages:
 - [mise](https://mise.jdx.dev/) tool versions
 - k9s
 - Homebrew packages, plus macOS casks
+- Cursor Cloud bootstrap (`.cursor/environment.json`), which installs [mise](https://mise.jdx.dev/) and the tools in `dot_config/mise/config.toml`
 
-`README.md` and `AGENTS.md` stay in the repo only. They are listed in `.chezmoiignore` so `chezmoi apply` does not copy them into `$HOME`.
+`README.md`, `AGENTS.md`, and `.cursor` stay in the repo only. They are listed in `.chezmoiignore` so `chezmoi apply` does not copy them into `$HOME`.
 
 ## Goals
 

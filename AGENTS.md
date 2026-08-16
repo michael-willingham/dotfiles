@@ -22,8 +22,10 @@ This is a [chezmoi](https://www.chezmoi.io/) **source-state** repository, not an
 | `run_after_20-set-shell-to-zsh.sh.tmpl` | After apply: set the login shell to zsh |
 | `run_after_30-install-mise.sh.tmpl` | After apply: install mise to `~/.local/bin` if missing |
 | `run_onchange_after_40-mise-install.sh.tmpl` | After apply, when `dot_config/mise/config.toml` changes: `mise trust` + `mise install` |
+| `.cursor/environment.json` | Cursor Cloud install hook (repo-only) |
+| `.cursor/install.sh` | Cursor Cloud: install mise, then `mise install` from `dot_config/mise/config.toml` |
 
-Repo docs stay in git and must not land in `$HOME`. `.chezmoiignore` currently excludes `README.md` and `AGENTS.md`. Chezmoi also ignores ordinary dotfiles in the source tree except its special files (`.chezmoiignore`, `.chezmoidata`, `.chezmoitemplates`, and similar).
+Repo docs stay in git and must not land in `$HOME`. `.chezmoiignore` currently excludes `README.md`, `AGENTS.md`, and `.cursor`. Chezmoi also ignores ordinary dotfiles in the source tree except its special files (`.chezmoiignore`, `.chezmoidata`, `.chezmoitemplates`, and similar).
 
 ## Naming
 
